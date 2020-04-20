@@ -7,18 +7,19 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="./assets/stylesheet/style.css">
+	<link rel="stylesheet" href="./assets/stylesheet/chartist.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
 	<script src="https://code.jquery.com/jquery-3.5.0.min.js"
 		integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 	<script src="./assets/javascript/scripts.js"></script>
+	<script src="./assets/javascript/chartist.min.js"></script>
 </head>
 
 
 <body>
 
 	<main>
-
 		<div class="sensor-wrapper">
 			<div class="content-wrapper">
 				<h2>My plant</h2>
@@ -26,11 +27,16 @@
 					<div class="plant-image"><img src="./assets/images/plant.png"></div>
 					<div class="plant-info">
 						<div class="load-data button">Update</div>
-						<div>Temperature: <span id="temperature-data">N/A</span></div>
-						<div>Moisture: <span id="moisture-data">N/A</span></div>
 						<div>Latest update: <span id="latest-update-data">N/A</span></div>
+						<br>
+						<div>Temperature: <span id="temperature-data">N/A</span></div>
+						<div class='data-graph temperature-graph'></div>
+						<br>
+						<div>Moisture: <span id="moisture-data">N/A</span></div>
+						<div class='data-graph moisture-graph'></div>
 
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -39,8 +45,9 @@
 			<div class="content-wrapper">
 				<h2>About the project</h2>
 				<p>This Web app is part of an artifact.
-				The data comes from a moisture sensor linked to an Arduino MKR Fox 1200. The data is transmitted over the SigFox Network.
-				This web app retrieves the latest data from the SigFox network via API.</p>
+					The data comes from a moisture sensor linked to an Arduino MKR Fox 1200. The data is transmitted
+					over the SigFox Network.
+					This web app retrieves the latest data from the SigFox network via API.</p>
 			</div>
 		</div>
 
@@ -58,7 +65,7 @@
 						</div>
 
 					</div>
-				
+
 					<div class="project-member">
 						<div class="member-image"><img src="./assets/images/lucas.jpg"></div>
 						<div class="member-description">
@@ -69,7 +76,7 @@
 						</div>
 
 					</div>
-				
+
 					<div class="project-member">
 						<div class="member-image"><img src="./assets/images/edoardo.jpg"></div>
 						<div class="member-description">
@@ -98,7 +105,9 @@
 
 	<footer>
 		<div>
-			<p>This is a prototype developed as part of a project for course <a href="https://kursuskatalog.cbs.dk/2019-2020/KAN-CINTO1014U.aspx">Internet of Things (CINTO1014U)</a> held at
+			<p>This is a prototype developed as part of a project for course <a
+					href="https://kursuskatalog.cbs.dk/2019-2020/KAN-CINTO1014U.aspx">Internet of Things
+					(CINTO1014U)</a> held at
 				Copenhagen Business School.</p>
 			<p>Code is not intended for production.</p>
 		</div>

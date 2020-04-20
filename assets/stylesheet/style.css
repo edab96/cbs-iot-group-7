@@ -18,7 +18,7 @@
     .sensor-wrapper {
         background-color: #31a05f;
         color: #fff;
-        padding-bottom: 130px;
+        padding-bottom: 425px;
     }
 
     .content-wrapper {
@@ -49,15 +49,14 @@
     }
 
     .plant-image {
-        max-width: 250px;
+        max-width: 500px;
         position: absolute;
-        top: -20px;
-        left: -75px;
+        top: 0;
+        left: -375px;
     }
 
     .plant-info {
         margin-left: 200px;
-        margin-top: 50px;
     }
 
     .plant-image>img {
@@ -119,16 +118,17 @@
         background-color: #28272f;
     }
 
-footer {
-    background-color: #f1f1f1;
-    color: #424348;
-}
+    footer {
+        background-color: #f1f1f1;
+        color: #424348;
+    }
 
-footer > div {
-    margin: 0 auto;
-    max-width: 500px;
-    padding: 50px 0;
-}
+    footer>div {
+        margin: 0 auto;
+        max-width: 500px;
+        padding: 50px 0;
+    }
+
     @media only screen and (max-width: 720px) {
         .content-wrapper {
             max-width: calc(100% - 20px);
@@ -142,14 +142,21 @@ footer > div {
         }
 
         .plant-image {
-            max-width: 250px;
+            max-width: 500px;
             position: absolute;
-            top: -20px;
-            left: -112px;
+            top: 0;
+            left: -300px;
         }
 
         .plant-info {
-            margin-left: 150px;
+            margin-left: 25px;
             margin-top: 50px;
+            z-index: 1;
+        }
+
+        footer>div {
+            margin: 0 auto;
+            max-width: 500px;
+            padding: 50px;
         }
     }
