@@ -119,6 +119,16 @@
         background-color: #28272f;
     }
 
+footer {
+    background-color: #f1f1f1;
+    color: #424348;
+}
+
+footer > div {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 50px 0;
+}
     @media only screen and (max-width: 720px) {
         .content-wrapper {
             max-width: calc(100% - 20px);
