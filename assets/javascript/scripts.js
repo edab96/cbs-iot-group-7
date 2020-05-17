@@ -5,9 +5,9 @@ It is important you specify your Device ID
 */
 
 var credentials = {
-    apiLogin: "5e9d7401e833d96cf4710c02",
-    password: "fab8b7cf61522b1a60ada26c06a32a22",
-    myDeviceId: "1D806D"
+    apiLogin: "5eb94efd25643251776126be",
+    password: "89aba7cf56b4d821e2dce3b0c4fe4039",
+    myDeviceId: "1D8CC3"
 }
 
 // Do not change the endpoint and path for the request
@@ -48,6 +48,19 @@ function getPlantData() {
 function parsePayload(payload) { // Takes the SigFox event as an input and returns an object with temperature, moisture and date of the event
     var date = new Date(payload.time);
 
+    // MAKES THE DATE ON THE GRAPH DATE/MONTH
+        // var m = date.getUTCMonth();
+        // m++;
+        // var d = date.getUTCDate() + "/" + m;
+
+    // MAKES DATE ON THE GRAPH HOUR:MINUTE
+        var t = date.getUTCHours();
+        t +=2;
+        var d = t + ":"+ date.getUTCMinutes();
+        console.log(d)
+  
+
+
     // Parse the hexadecimal data for temperature and moisture
     var temperature = parseInt(payload.data.slice(0, 2), 16);
     var moisture = parseInt((payload.data.slice(4, 6) + payload.data.slice(2, 4)), 16);
@@ -55,7 +68,7 @@ function parsePayload(payload) { // Takes the SigFox event as an input and retur
     return {
         temperature: temperature,
         moisture: moisture,
-        date: date
+        date: d
     }
 }
 
@@ -80,7 +93,7 @@ request.onreadystatechange = function () {
                 datapoints.temperature
             ]
         }, {
-            low: 0,
+            low: 10,
             showArea: true
         });
 
@@ -91,7 +104,8 @@ request.onreadystatechange = function () {
             ]
         }, {
             low: 0,
-            showArea: true
+            showArea: true,
+            
         });
 
         var latestData = parsePayload(response.data[0]);
