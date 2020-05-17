@@ -57,7 +57,6 @@ function parsePayload(payload) { // Takes the SigFox event as an input and retur
         var t = date.getUTCHours();
         t +=2;
         var d = t + ":"+ date.getUTCMinutes();
-        console.log(d)
   
 
 
@@ -86,6 +85,11 @@ request.onreadystatechange = function () {
             datapoints.moisture.push(event.moisture);
             datapoints.date.push(event.date);
         })
+
+        // REVERSES THE ORDER OF DATAPOINTS TO ARRANGE THE CHART CORRECTLY
+        datapoints.date.reverse();
+        datapoints.temperature.reverse();
+        datapoints.moisture.reverse();
 
         new Chartist.Line('.temperature-graph', {
             labels: datapoints.date,
