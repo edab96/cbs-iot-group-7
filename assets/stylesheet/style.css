@@ -74,7 +74,22 @@
         display: inline-block;
         margin: 10px;
     }
-
+	.user-feedback {
+		padding: 10px 30px;
+		border-radius: 30px;
+		background-color: #fff;
+		color: #2e5d41;
+		display: none;
+	}
+	.latest-update {
+		border: 1px solid white;
+		padding: 10px;
+		border-radius: 25px;
+		text-align: center;
+	}
+	.low-temp-message.user-feedback, .low-moisture-message.user-feedback {
+		color: #af2a2a;
+	}
     .project-members-row {
         display: flex;
         flex-direction: row;
@@ -107,11 +122,17 @@
         color: #31a05f;
         text-align: center;
         margin: 20px 0;
-        border-radius: 20px;
+        border-radius: 25px;
         cursor: pointer;
         transition: .25s ease all;
     }
-
+	.load-data.button>img {
+		width: 25px;
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: 20px;
+	}
+	
     .load-data.button:hover {
         padding: 10px;
         color: #fff;
@@ -128,6 +149,12 @@
         max-width: 500px;
         padding: 50px 0;
     }
+	#device-id-label {
+		font-size: 15px;
+		border: 1px solid white;
+		border-radius: 4px;
+		padding: 4px 10px;
+	}
 
     @media only screen and (max-width: 720px) {
         .content-wrapper {

@@ -1,0 +1,39 @@
+/*
+Internet of Things, Spring 2020
+
+Loops every 15 minutes and sends moisture percentage and board temperature over the SigFox Network
+*/ 
+
+#include <RTCZero.h>
+#include <ArduinoLowPower.h>
+#include <SigFox.h>
+#define LED 6  
+
+int moistureSensor = A0;
+int moistureOutput;
+
+int16_t moistValue;
+int8_t temperature;
+
+void setup() {
+ if (!SigFox.begin()) {
+    Serial.println("Unable to init the Atmel ATA8520 Sigfox chipset");
+    return;
+    }
+    SigFox.debug();
+}
+
+void loop() {
+  SigFox.begin();
+  temperature = (int8_t) SigFox.internalTemperature();
+  moistureOutput = analogRead(moistureSensor);
+  moistValue = moistureOutput/10;
+  
+  SigFox.beginPacket();
+  SigFox.write(temperature);
+  SigFox.write(moistValue);
+  SigFox.endPacket();
+  SigFox.end();
+  
+  LowPower.sleep(15 * 60 * 1000);
+}

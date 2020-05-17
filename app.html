@@ -8,12 +8,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="./assets/stylesheet/style.css">
 	<link rel="stylesheet" href="./assets/stylesheet/chartist.min.css">
+	<link rel="stylesheet" href="./assets/stylesheet/chartist-plugin-tooltip.css">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
 	<script src="https://code.jquery.com/jquery-3.5.0.min.js"
 		integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+	<script src="./credentials.js"></script>
 	<script src="./assets/javascript/scripts.js"></script>
 	<script src="./assets/javascript/chartist.min.js"></script>
+	<script src="./assets/javascript/chartist-plugin-tooltip.js"></script>
 </head>
 
 
@@ -22,19 +25,22 @@
 	<main>
 		<div class="sensor-wrapper">
 			<div class="content-wrapper">
-				<h2>My plant</h2>
+				<h2>My plant <span id="device-id-label"></span><img style="width:25px;display:inline-block;vertical-align: middle;margin-left: 20px;" class="load-data button" src="./assets/images/refresh-icon.svg"></h2>
 				<div class="plant-wrapper">
 					<div class="plant-image"><img src="./assets/images/plant.png"></div>
 					<div class="plant-info">
-						<div class="load-data button">Update</div>
-						<div>Latest update: <span id="latest-update-data">N/A</span></div>
+						<!--<div class="load-data button">Update<img style="width:25px;display:inline-block" src="./assets/images/refresh-icon.svg"></div>-->
+						<div class="latest-update">Latest update: <span id="latest-update-data">N/A</span></div>
 						<br>
 						<div>Temperature: <span id="temperature-data">N/A</span></div>
 						<div class='data-graph temperature-graph'></div>
+						<div class='temp-feedback low-temp-message user-feedback'>It is a bit too cold for your plant!</div>
+						<div class='temp-feedback high-temp-message user-feedback'>The temperature is at an optimal level for your plant ☑️.</div>
 						<br>
 						<div>Moisture: <span id="moisture-data">N/A</span></div>
 						<div class='data-graph moisture-graph'></div>
-
+						<div class='moisture-feedback low-moisture-message user-feedback'>Your soil seems to be drying too much.<br>Consider watering your plant!</div>
+						<div class='moisture-feedback high-moisture-message user-feedback'>Your moisture level is fine ☑️.<br>Keep your soil humid. 😃</div>
 					</div>
 
 				</div>

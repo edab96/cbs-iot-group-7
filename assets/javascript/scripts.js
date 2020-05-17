@@ -1,15 +1,3 @@
-/*
-Credentials otbained from Backend SigFox / Group / API Access
-The API Access should have reading permissions for the profile "message"
-It is important you specify your Device ID
-*/
-
-var credentials = {
-    apiLogin: "5e9d7401e833d96cf4710c02",
-    password: "fab8b7cf61522b1a60ada26c06a32a22",
-    myDeviceId: "1D806D"
-}
-
 // Do not change the endpoint and path for the request
 var endpoint = "https://api.sigfox.com/v2/devices/";
 var path = "/messages";
@@ -21,19 +9,19 @@ var response;
 // SigFox messages 
 var events = [];
 
+var tempChart;
 // Datapoints for charts
-var datapoints = {
-    temperature: [],
-    moisture: [],
-    date: []
-}
+var datapoints = {};
 
-$(document).ready(function () {
+$(document).ready(function () {		
+$("#device-id-label").html(credentials.myDeviceId);
+	getPlantData();
+	
     $(".load-data").click(function () {
         getPlantData();
     });
 
-    getPlantData();
+    
 
 });
 
@@ -51,11 +39,11 @@ function parsePayload(payload) { // Takes the SigFox event as an input and retur
     // Parse the hexadecimal data for temperature and moisture
     var temperature = parseInt(payload.data.slice(0, 2), 16);
     var moisture = parseInt((payload.data.slice(4, 6) + payload.data.slice(2, 4)), 16);
-
+	console.log(temperature);
     return {
         temperature: temperature,
         moisture: moisture,
-        date: date
+        date: date.getHours() + ':' + date.getMinutes()
     }
 }
 
@@ -63,26 +51,38 @@ request.onreadystatechange = function () {
     if (request.readyState == 4 && request.status == 200) {
         response = JSON.parse(request.responseText)
         console.log(response)
-
+		
+		var events = [];
         for (i = 0; (i < (response.data.length - 1) && i < 5); i++) {
-            events.push(parsePayload(response.data[i]))
+            events.unshift(parsePayload(response.data[i]))
         }
-
+		
+		var datapoints = {
+			temperature: [],
+			moisture: [],
+			date: []
+		}
+		
         events.forEach(function (event) {
             datapoints.temperature.push(event.temperature);
             datapoints.moisture.push(event.moisture);
             datapoints.date.push(event.date);
         })
+		
 
-        new Chartist.Line('.temperature-graph', {
+		new Chartist.Line('.temperature-graph', {
             labels: datapoints.date,
             series: [
                 datapoints.temperature
             ]
         }, {
             low: 0,
-            showArea: true
+            showArea: true,
+			plugins: [
+				Chartist.plugins.tooltip()
+			  ]
         });
+       
 
         new Chartist.Line('.moisture-graph', {
             labels: datapoints.date,
@@ -91,9 +91,13 @@ request.onreadystatechange = function () {
             ]
         }, {
             low: 0,
-            showArea: true
+            showArea: true,
+			plugins: [
+				Chartist.plugins.tooltip()
+			  ]
         });
 
+		
         var latestData = parsePayload(response.data[0]);
         console.log(latestData);
 
@@ -103,6 +107,20 @@ request.onreadystatechange = function () {
         $('#temperature-data').html(latestData.temperature + "°C");
         $('#moisture-data').html(latestData.moisture + "%");
         $('#latest-update-data').html(latestData.date);
+		
+		if (latestData.temperature > 15){
+			$('.high-temp-message').show();
+		}
+		else {
+			$('.low-temp-message').show();
+		}
+		
+		if (latestData.moisture > 50){
+			$('.high-moisture-message').show();
+		}
+		else {
+			$('.low-moisture-message').show();
+		}
 
     }
 };
